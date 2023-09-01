@@ -70,9 +70,9 @@ public partial class Delegate_AnonhymousMethod : Form
 public partial class Delegate_AnonymousMethod : Form
 {
     // 메서드 자체를 인수로 전달해야 할 경우 사용
-    private void btnCallDelegateMethod_Click(object     sender, EventArgs e)
+    private void btnCallDelegateMethod_Click(object sender, EventArgs e)
     {
-        txtMessage.Text = Delegate_Method.  SetValueSomeMEthod(10, 20, Plus).ToString();
+        txtMessage.Text = Delegate_Method.SetValueSomeMethod(10, 20, Plus).ToString();
     }
 }
 ```  
@@ -81,7 +81,7 @@ public partial class Delegate_AnonymousMethod : Form
   + 이름이 없는 메서드
   + 일회성으로 호출되고 소멸될 메서드
 ```cs
-public partial class Delegate_AnonymousMeethod : Form
+public partial class Delegate_AnonymousMethod : Form
 {
     private void btnAnonymousMethod_Click(object sender, EventArgs e)
     {
@@ -90,7 +90,7 @@ public partial class Delegate_AnonymousMeethod : Form
 
         // 간단한 형식으로 무명메서드를 전달한다. (람다식)
         // 컴파일러가 SetValueSomeMethod의 인자 iValue1, iValue2를 보고 반환 형태를 유추한다.
-        txtMessage.Text += Delegate_Method.SetValueSomeMethod(10, 20, (x, y)=>x+y).ToSTring();
+        txtMessage.Text += Delegate_Method.SetValueSomeMethod(10, 20, (x, y)=>x+y).ToString();
     }
 }
 ```

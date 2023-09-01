@@ -74,7 +74,81 @@ public partial class Chap40_Lambda : Form
     #endregion
 
     #region <람다의 표현 4>
-    
-    
+    delegate void Calculation3();
+    private void btnLambda4_Click(object sender, EventArgs e)
+    {
+        // 인자와 인수가 없는 대리자를 정의할 시 람다식도 인수와 반환 식을 작성하지 않아도 된다.
+        Calculation3 cal = () => txtxMessage.Text = "() => {}의 표현 람다식";
+        cal();
+
+        Calculation3 cal2 = DoMethod;
+        cal2();
+    }
+
+    public void DoMethod()
+    {
+        txtMessage.Text = "() => {}의 표현 람다식";
+    }
+    #endregion
 }
+```
+
+### Action과 Func
++ 미리 정의되어 있는 대리자
++ 대리자를 간략하게 표현할 수 있도록 해주는 문법 기능<br>
++ Action
+  - 반환 형식 없이(void) 인자만 가지고 있는 메서드 시그니처 대리자 형식
++ Func
+  - 인자를 받고 결과 값을 반환하는 델리게이트
+```cs
+#region <Lambda Action 1>
+private void btnAction_Click(object sender, EventArgs e)
+{
+    ActionMethod_A("Action 메서드를 호출합니다.", () => txtMessage.Text = "");
+    // ActionMethod_A()에 "Action 메서드를 호출합니다." 라는 문구를 인자로 던질테니 message라는 인자로 받아 txtMessage.text에 표현하세요. 라는 의미
+}
+
+private void ActionMethod_A(string Message, Action action)
+{
+    action();
+}
+// ==> 위 ActionMethod_A의 action 인자는 아래의 대리자 구문이 간략히 표현된 결과이다.
+// delegate void DelegateTest(string Message);
+// private void ActionMethod_D(string Message, DelegateTest Action)
+// {
+//     Action(Message);
+// }
+#endregion
+
+#region <Lambda Action 2>
+// 인자가 여러개인 Action
+// ex) Action<string, int>
+// => delegate void (string sValue, int iValue);
+
+private void btnAction2_Click(object sneder, EventArgs e)
+{
+    ActionMethod2("전달받은 값은 : ", 500, (sValue, iValue) => txtMessage.Text = sValue + iValue.ToString());
+}
+
+private void ActionMethod2(string Message, int iValue, Action<string, int> Action)
+{
+    Action(Message, iValue);
+}
+#endregion
+
+#region <인자를 받고 결과값을 반환하는 델리게이트, Func>
+// Func<인자 타입1, 인자 타입2, 반환 타입>
+// * 마지막 부분은 반드시 반환 타입 :: Func<N개의 인자 유형, 반환 데이터 형식>
+
+// ex) Func<string, int, string>
+// => delegate string (string sValue, int iValue);
+
+private void btnFunc_Click(object sender, EventArgs e)
+{
+    FuncMethod("Func 대리자에 값을 등록합니다. : ", 500, (sMessage, iValue) => sMessage + iValue);
+
+    // FuncMethod()에 "Func 대리자에 값을 등록합니다. : " 라는 문구와 정수 500을 던져줄테니 각각 sMessage는 string, iValue는 int 형식으로 인자를 받아서 문자열로 합친 후 string 형식으로 반환해줘!
+}
+
+delegate 
 ```
